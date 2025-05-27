@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Stay With Me – Synced Interactive Lyrics</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,8 +11,12 @@
   <header>
     <h1>Stay With Me</h1>
     <div class="subtitle">▶︎ play/pause • 🔍 vocab • tap text → English</div>
-    <button id="toggleVideo" title="Hide/Show Video">🎥</button>
-    <button id="fsBtn" aria-label="Full Screen">⛶</button>
+    <button id="toggleVideo" title="Hide/Show Video">
+            <svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor"><path d="M10.5 3.5h-5a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5Zm-5-1A1.5 1.5 0 0 0 4 4v8a1.5 1.5 0 0 0 1.5 1.5h5A1.5 1.5 0 0 0 12 12V4a1.5 1.5 0 0 0-1.5-1.5h-5Z M14.25 5.28v5.44a.75.75 0 0 1-1.28.53l-1.5-1.5A.75.75 0 0 1 11.25 9V7a.75.75 0 0 1 .22-.53l1.5-1.5a.75.75 0 0 1 1.28.53Z"/></svg>
+        </button>
+    <button id="fsBtn" aria-label="Full Screen">
+            <svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor"><path d="M6.5 3.5h3v-1h-3a1.5 1.5 0 0 0-1.5 1.5v3h1v-3a.5.5 0 0 1 .5-.5Zm3 10h-3a.5.5 0 0 1-.5-.5v-3h-1v3a1.5 1.5 0 0 0 1.5 1.5h3v-1ZM14 6.5v3h1v-3a1.5 1.5 0 0 0-1.5-1.5h-3v1h3a.5.5 0 0 1 .5.5ZM3.5 9.5h-1v-3a.5.5 0 0 1 .5-.5h3v-1h-3A1.5 1.5 0 0 0 1 6.5v3h1Z"/></svg>
+        </button>
   </header>
 
   <div id="player-container">

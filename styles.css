@@ -1,10 +1,10 @@
 :root {
-  --bg: linear-gradient(135deg,#0c1118,#121b28);
-  --card: rgba(255,255,255,.05);
-  --border: rgba(255,255,255,.12);
-  --accent: #4dd0e1;
-  --txt: #fff;
-  --sub: #7f8fa4;
+  --bg: #0d1117; /* Solid dark background */
+  --card: #161b22; /* Slightly more defined card background */
+  --border: #30363d; /* Subtle gray border */
+  --accent: #58a6ff; /* GitHub-like blue accent */
+  --txt: #c9d1d9; /* Off-white primary text */
+  --sub: #8b949e; /* Gray secondary text */
   --safe-top: env(safe-area-inset-top);
   --safe-bot: env(safe-area-inset-bottom);
 }
@@ -12,7 +12,8 @@
 html, body { height: 100%; }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.6; /* Added for better readability */
   background: var(--bg);
   color: var(--txt);
   padding-top: calc(16px + var(--safe-top));
@@ -30,7 +31,7 @@ header {
 
 header h1 {
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400; /* Changed from 500 to 400 for a lighter feel */
 }
 
 header .subtitle {
@@ -46,10 +47,18 @@ header .subtitle {
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: var(--accent);
-  font-size: 1.5rem;
+  color: var(--sub); /* Change default color to sub text color */
+  font-size: 1.5rem; /* Existing */
   cursor: pointer;
-  padding: 8px;
+  padding: 8px; /* Existing */
+  border-radius: 6px; /* Add border-radius */
+  transition: color 0.15s, background-color 0.15s;
+}
+
+#toggleVideo:hover,
+#fsBtn:hover {
+  color: var(--accent); /* Accent color on hover */
+  background-color: var(--card); /* Subtle background on hover */
 }
 
 #toggleVideo { right: 60px; }
@@ -143,34 +152,107 @@ main {
   bottom: 12px;
   width: 32px;
   height: 32px;
-  border: none;
-  border-radius: 50%;
-  background: var(--accent);
+  border: 1px solid var(--border); /* Add border */
+  border-radius: 6px; /* GitHub-like rounded corners */
+  background: var(--card); /* Button background */
+  color: var(--txt); /* Icon color */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s;
+  transition: background-color 0.15s, border-color 0.15s; /* Smooth transition */
+}
+
+.playBtn:hover,
+.vocabBtn:hover {
+  border-color: var(--accent); /* Accent border on hover */
+  background: #21262d; /* Slightly lighter background on hover */
+}
+
+.playBtn svg, 
+.vocabBtn svg { 
+  width: 18px; 
+  height: 18px;
+}
+
+/* Add specific rule for .playBtn if it needs fill and .vocabBtn if it needs stroke */
+.playBtn svg {
+    fill: currentColor; /* For existing play/pause icon */
+}
+.vocabBtn svg {
+    stroke: currentColor; /* For new line icon */
+    fill: none; /* Ensure no fill for line icon */
 }
 
 .playBtn { right: 52px; }
 .vocabBtn { right: 12px; }
 
-.playBtn:hover svg,
-.vocabBtn:hover svg {
-  transform: scale(1.1);
-}
-
-.playBtn svg,
-.vocabBtn svg {
-  width: 20px;
-  height: 20px;
-  fill: #0c1118;
-  transition: transform 0.15s;
-}
-
 main::-webkit-scrollbar { width: 6px; }
 main::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    /* Header Adjustments */
+    header h1 {
+        font-size: 1.3rem; /* Slightly smaller title */
+        font-weight: 400; /* Ensure consistency */
+    }
+
+    header .subtitle {
+        font-size: 0.7rem; /* Slightly smaller subtitle */
+        margin: 2px 0 8px; /* Adjust margin for tighter spacing */
+    }
+
+    #toggleVideo,
+    #fsBtn {
+        font-size: 1.3rem; /* Slightly smaller icons */
+        padding: 6px; /* Adjust padding for touch target */
+    }
+    
+    #toggleVideo { right: 50px; } /* Adjust position slightly */
+    #fsBtn { right: 10px; } /* Adjust position slightly */
+
+    /* Player Container */
+    #player-container {
+        height: 180px; /* Reduced height for mobile */
+        margin: 8px auto; /* Reduced margin */
+    }
+
+    /* Main Lyrics Area & Lines */
+    main {
+        padding: 0 15px 15px; /* Slightly reduce padding for main content area */
+    }
+
+    .line {
+        padding: 15px; /* Reduced padding inside lyric cards */
+        border-radius: 12px; /* Slightly smaller border radius */
+        margin-bottom: 12px; /* Reduced margin between cards */
+    }
+
+    .romaji {
+        font-size: 0.95rem; /* Adjust romaji font size */
+    }
+
+    .translation, .vocab {
+        font-size: 0.85rem; /* Adjust translation/vocab font size */
+    }
+
+    .playBtn,
+    .vocabBtn {
+        width: 36px; /* Slightly larger touch target */
+        height: 36px; /* Slightly larger touch target */
+        bottom: 10px; /* Adjust position */
+    }
+
+    .playBtn svg,
+    .vocabBtn svg {
+        width: 18px; /* Consistent with global */
+        height: 18px; /* Consistent with global */
+        /* Specific fill/stroke rules from above will apply */
+    }
+    
+    .playBtn { right: 50px; } /* Adjust position */
+    .vocabBtn { right: 10px; } /* Adjust position */
 }
