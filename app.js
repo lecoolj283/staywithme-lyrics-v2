@@ -63,6 +63,9 @@ const dict = {
   ana:'hole', atatamete:'warming'
 };
 
+const playIconSvg = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+const pauseIconSvg = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>';
+
 // Build lyric cards
 const wrap = document.getElementById('lyrics');
 lyrics.forEach(([ro, en, sec]) => {
@@ -91,20 +94,40 @@ wrap.addEventListener('click', e => {
   if (!line) return;
 
   if (e.target.closest('.playBtn')) {
-    e.stopPropagation();
-    const btn = e.target.closest('.playBtn');
-    const t = parseFloat(line.dataset.time);
-    const state = player.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-      player.pauseVideo();
-      btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-    } else {
-      player.seekTo(t, true);
-      player.playVideo();
-      btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>`;
+        e.stopPropagation();
+        const clickedBtn = e.target.closest('.playBtn');
+        const line = clickedBtn.closest('.line'); // get the parent .line of the clicked button
+        const t = parseFloat(line.dataset.time);
+        const playerState = player.getPlayerState();
+
+        // Reset all other buttons to play icon first
+        // This handles the case where another line was active or to clean up states.
+        document.querySelectorAll('.playBtn').forEach(otherBtn => {
+            if (otherBtn !== clickedBtn) {
+                otherBtn.innerHTML = playIconSvg;
+            }
+        });
+
+        if (playerState === YT.PlayerState.PLAYING) {
+            // If the video is currently playing
+            if (clickedBtn.innerHTML === pauseIconSvg) { 
+                // Clicked on the button that is currently showing PAUSE (i.e., the active line's button)
+                player.pauseVideo();
+                clickedBtn.innerHTML = playIconSvg;
+            } else {
+                // Clicked on a play button for a DIFFERENT line (or a line that was paused)
+                player.seekTo(t, true);
+                player.playVideo(); // Ensure it plays, seekTo might not guarantee it if it was already playing
+                clickedBtn.innerHTML = pauseIconSvg;
+            }
+        } else {
+            // Player is paused, ended, cued, etc.
+            player.seekTo(t, true);
+            player.playVideo();
+            clickedBtn.innerHTML = pauseIconSvg;
+        }
+        return;
     }
-    return;
-  }
 
   if (e.target.closest('.vocabBtn')) {
     e.stopPropagation();
