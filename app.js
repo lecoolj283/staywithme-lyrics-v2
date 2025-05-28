@@ -151,11 +151,25 @@ wrap.addEventListener('click', e => {
 
 // YouTube player
 let player;
+let currentActiveButton = null; // Added global variable
+
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    videoId: 'QNYT9wVwQ8A', // Ensure this ID is updated
-    playerVars: { rel: 0, modestbranding: 1, playsinline: 1 }
+    videoId: 'QNYT9wVwQ8A',
+    playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+    events: {
+      'onStateChange': onPlayerStateChange // Add this line
+    }
   });
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    if (currentActiveButton) {
+      currentActiveButton.innerHTML = playIconSvg;
+      currentActiveButton = null;
+    }
+  }
 }
 
 // UI buttons
